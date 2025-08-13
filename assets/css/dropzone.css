@@ -1,0 +1,478 @@
+/* Drag and Drop Styles */
+
+.fps-dropzone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  background: #fafafa;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fps-dropzone:hover {
+  border-color: #0073aa;
+  background: #f0f8ff;
+}
+
+.fps-dropzone.dragover {
+  border-color: #0073aa;
+  background: #e7f3ff;
+  border-style: solid;
+  transform: scale(1.02);
+}
+
+.fps-dropzone.dragover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 115, 170, 0.1);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.fps-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.fps-dropzone-icon {
+  font-size: 48px;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.fps-dropzone:hover .fps-dropzone-icon,
+.fps-dropzone.dragover .fps-dropzone-icon {
+  color: #0073aa;
+}
+
+.fps-dropzone-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.fps-dropzone:hover .fps-dropzone-text,
+.fps-dropzone.dragover .fps-dropzone-text {
+  color: #0073aa;
+}
+
+.fps-dropzone-subtext {
+  font-size: 14px;
+  color: #999;
+}
+
+/* File upload progress */
+.fps-upload-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #f0f0f1;
+  overflow: hidden;
+  border-radius: 0 0 8px 8px;
+}
+
+.fps-upload-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #0073aa, #005a87);
+  width: 0%;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.fps-upload-progress-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* File preview styles */
+.fps-file-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #e1e5e9;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.fps-file-preview:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fps-file-preview.uploading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.fps-file-preview.error {
+  border-color: #d63638;
+  background: #fef7f7;
+}
+
+.fps-file-preview.success {
+  border-color: #00a32a;
+  background: #f7fdf7;
+}
+
+.fps-file-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f1;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.fps-file-icon.image {
+  background: #e7f3ff;
+  color: #0073aa;
+}
+
+.fps-file-icon.text {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.fps-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.fps-file-name {
+  font-weight: 500;
+  color: #23282d;
+  margin-bottom: 2px;
+  word-break: break-word;
+}
+
+.fps-file-size {
+  font-size: 12px;
+  color: #666;
+}
+
+.fps-file-status {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.fps-file-status.uploading {
+  color: #0073aa;
+}
+
+.fps-file-status.error {
+  color: #d63638;
+}
+
+.fps-file-status.success {
+  color: #00a32a;
+}
+
+.fps-file-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.fps-file-action {
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.fps-file-action:hover {
+  background: #f0f0f1;
+  color: #23282d;
+}
+
+.fps-file-action.remove {
+  color: #d63638;
+}
+
+.fps-file-action.remove:hover {
+  background: #fef7f7;
+  color: #d63638;
+}
+
+/* Drag overlay */
+.fps-drag-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 115, 170, 0.1);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.fps-drag-overlay.active {
+  display: flex;
+}
+
+.fps-drag-message {
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  border: 2px dashed #0073aa;
+}
+
+.fps-drag-message-icon {
+  font-size: 64px;
+  color: #0073aa;
+  margin-bottom: 16px;
+}
+
+.fps-drag-message-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0073aa;
+  margin-bottom: 8px;
+}
+
+.fps-drag-message-subtext {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Multiple file selection */
+.fps-file-counter {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #0073aa;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Error states */
+.fps-dropzone.error {
+  border-color: #d63638;
+  background: #fef7f7;
+}
+
+.fps-dropzone.error .fps-dropzone-icon {
+  color: #d63638;
+}
+
+.fps-dropzone.error .fps-dropzone-text {
+  color: #d63638;
+}
+
+.fps-error-message {
+  color: #d63638;
+  font-size: 12px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #fef7f7;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+/* Success states */
+.fps-dropzone.success {
+  border-color: #00a32a;
+  background: #f7fdf7;
+}
+
+.fps-dropzone.success .fps-dropzone-icon {
+  color: #00a32a;
+}
+
+.fps-dropzone.success .fps-dropzone-text {
+  color: #00a32a;
+}
+
+.fps-success-message {
+  color: #00a32a;
+  font-size: 12px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #f7fdf7;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .fps-dropzone {
+    padding: 30px 15px;
+  }
+
+  .fps-dropzone-icon {
+    font-size: 36px;
+  }
+
+  .fps-dropzone-text {
+    font-size: 14px;
+  }
+
+  .fps-dropzone-subtext {
+    font-size: 12px;
+  }
+
+  .fps-file-preview {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .fps-file-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .fps-drag-message {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+
+  .fps-drag-message-icon {
+    font-size: 48px;
+  }
+
+  .fps-drag-message-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fps-dropzone {
+    padding: 20px 10px;
+  }
+
+  .fps-dropzone-icon {
+    font-size: 32px;
+  }
+
+  .fps-file-preview {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .fps-file-info {
+    width: 100%;
+  }
+
+  .fps-file-actions {
+    align-self: flex-end;
+  }
+}
+
+/* Animation for file additions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fps-file-preview.new {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Loading spinner */
+.fps-loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #0073aa;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* File type indicators */
+.fps-file-type-image::before {
+  content: "\f128";
+  font-family: "dashicons";
+  color: #0073aa;
+}
+
+.fps-file-type-text::before {
+  content: "\f123";
+  font-family: "dashicons";
+  color: #f57c00;
+}
+
+.fps-file-type-unknown::before {
+  content: "\f317";
+  font-family: "dashicons";
+  color: #666;
+}

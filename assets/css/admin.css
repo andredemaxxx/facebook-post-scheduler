@@ -1,0 +1,1618 @@
+/* Facebook Post Scheduler Admin Styles */
+/* Updated for modern design with Tailwind-inspired classes */
+
+/* Prevent recursion-related UI issues */
+.fps-loading {
+    pointer-events: none;
+}
+
+.fps-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Settings tabs fix */
+.fps-settings-tabs .fps-tab-content {
+    display: none;
+}
+
+.fps-settings-tabs .fps-tab-content.active {
+    display: block;
+}
+
+/* Date picker improvements */
+.fps-date-input-wrapper {
+    position: relative;
+}
+
+.fps-date-input {
+    padding-right: 40px;
+}
+
+.fps-calendar-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #666;
+}
+
+/* Hide broken datepicker */
+.ui-datepicker-div,
+.ui-datepicker {
+    display: none !important;
+}
+
+/* Fix Share to Story checkbox */
+.fps-share-to-story-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fps-share-to-story-wrapper input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+
+.fps-share-to-story-wrapper label {
+    margin: 0;
+    font-weight: normal;
+}
+
+/* Multiple images support */
+.fps-images-section {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.fps-image-item {
+    position: relative;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.fps-image-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fps-image-preview {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    display: block;
+}
+
+.fps-remove-media {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #d63638;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.fps-remove-media:hover {
+    background: #a00;
+}
+
+/* Carousel preview styles */
+.fps-post-carousel {
+    display: flex;
+    gap: 2px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.fps-carousel-image {
+    flex: 1;
+    height: 200px;
+    object-fit: cover;
+}
+
+.fps-carousel-more {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Link preview improvements */
+.fps-link-preview {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.fps-link-image {
+    width: 80px;
+    height: 80px;
+    background: #f0f2f5;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fps-link-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fps-link-content {
+    padding: 10px;
+    flex: 1;
+}
+
+.fps-link-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #1c1e21;
+    margin-bottom: 2px;
+    line-height: 1.2;
+}
+
+.fps-link-description {
+    font-size: 12px;
+    color: #65676b;
+    margin-bottom: 2px;
+    line-height: 1.3;
+}
+
+.fps-link-url {
+    font-size: 11px;
+    color: #65676b;
+    text-transform: uppercase;
+}
+
+/* Prevent recursion-related UI issues */
+.fps-loading {
+    pointer-events: none;
+}
+
+.fps-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Multi scheduler specific styles */
+.fps-multi-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.fps-upload-mode-selector {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.fps-upload-mode-selector label {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.fps-upload-mode-selector label:hover {
+    background: #e9ecef;
+}
+
+.fps-upload-mode-selector input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* General Styles */
+.fps-admin-wrap {
+    max-width: 1200px;
+}
+
+/* Statistics Grid */
+.fps-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.fps-stat-card {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+.fps-stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0073aa;
+    color: white;
+    font-size: 24px;
+}
+
+.fps-stat-content {
+    flex: 1;
+}
+
+.fps-stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #23282d;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.fps-stat-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Dashboard Content */
+.fps-dashboard-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.fps-dashboard-section {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+.fps-section-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fps-section-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Quick Actions */
+.fps-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.fps-quick-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #e1e5e9;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #23282d;
+    transition: all 0.2s ease;
+}
+
+.fps-quick-action:hover {
+    background: #e9ecef;
+    color: #0073aa;
+    text-decoration: none;
+}
+
+.fps-quick-action .dashicons {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+/* Recent Posts */
+.fps-recent-posts {
+    padding: 20px;
+}
+
+.fps-recent-post {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.fps-recent-post:last-child {
+    border-bottom: none;
+}
+
+.fps-post-status {
+    flex-shrink: 0;
+}
+
+.fps-status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+
+.fps-status-scheduled {
+    background: #f0b849;
+    color: white;
+}
+
+.fps-status-scheduled_facebook {
+    background: #1877f2;
+    color: white;
+}
+
+.fps-status-published {
+    background: #00a32a;
+    color: white;
+}
+
+.fps-status-failed {
+    background: #d63638;
+    color: white;
+}
+
+.fps-post-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.fps-post-message {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+.fps-post-meta {
+    font-size: 12px;
+    color: #666;
+}
+
+.fps-post-time {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fps-post-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.fps-post-actions a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    background: #f0f0f1;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.fps-post-actions a:hover {
+    background: #0073aa;
+    color: white;
+}
+
+/* System Status */
+.fps-system-status {
+    padding: 20px;
+}
+
+.fps-status-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.fps-status-item:last-child {
+    border-bottom: none;
+}
+
+.fps-status-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.fps-status-ok {
+    background: #00a32a;
+    color: white;
+}
+
+.fps-status-warning {
+    background: #f0b849;
+    color: white;
+}
+
+.fps-status-error {
+    background: #d63638;
+    color: white;
+}
+
+.fps-status-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Empty State */
+.fps-empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.fps-empty-state .dashicons {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.fps-empty-state p {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+}
+
+/* Form Styles */
+.fps-form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.fps-form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fps-form-group {
+    margin-bottom: 20px;
+}
+
+.fps-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #23282d;
+}
+
+.fps-form-group .required {
+    color: #d63638;
+}
+
+.fps-form-group input,
+.fps-form-group select,
+.fps-form-group textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.fps-form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.fps-character-count {
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.fps-timezone-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Media Upload */
+.fps-media-tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.fps-tab-button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.fps-tab-button.active {
+    color: #0073aa;
+    border-bottom-color: #0073aa;
+}
+
+.fps-tab-content {
+    display: none;
+}
+
+.fps-tab-content.active {
+    display: block;
+}
+
+.fps-upload-area {
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.fps-upload-area:hover {
+    border-color: #0073aa;
+    background: #f8f9ff;
+}
+
+.fps-upload-placeholder .dashicons {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.fps-upload-placeholder p {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.fps-upload-placeholder .description {
+    font-size: 12px;
+    color: #999;
+}
+
+.fps-image-preview,
+.fps-video-preview {
+    position: relative;
+}
+
+.fps-image-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.fps-video-preview video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.fps-remove-media {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(214, 54, 56, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fps-remove-media:hover {
+    background: #d63638;
+}
+
+/* Post Preview */
+.fps-post-preview {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.fps-post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.fps-post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #1877f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.fps-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #1877f2;
+    border-radius: 50%;
+}
+
+.fps-page-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1c1e21;
+}
+
+.fps-post-time {
+    font-size: 12px;
+    color: #65676b;
+}
+
+.fps-post-content {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #1c1e21;
+}
+
+.fps-post-link {
+    margin: 0 15px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.fps-link-preview {
+    display: flex;
+}
+
+.fps-link-image {
+    width: 80px;
+    height: 80px;
+    background: #f0f2f5;
+    flex-shrink: 0;
+}
+
+.fps-link-content {
+    padding: 10px;
+    flex: 1;
+}
+
+.fps-link-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #1c1e21;
+    margin-bottom: 2px;
+}
+
+.fps-link-url {
+    font-size: 12px;
+    color: #65676b;
+    text-transform: uppercase;
+}
+
+.fps-post-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+}
+
+.fps-action {
+    font-size: 13px;
+    color: #65676b;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.fps-action:hover {
+    color: #1877f2;
+}
+
+.fps-preview-placeholder {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.fps-preview-placeholder .dashicons {
+    font-size: 48px;
+    color: #1877f2;
+    margin-bottom: 15px;
+}
+
+/* Submit Actions */
+.fps-submit-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.fps-form-help {
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* Loading Overlay */
+#fps-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fps-loading-content {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.fps-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #0073aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Settings Tabs */
+.fps-settings-tabs {
+    margin-top: 20px;
+}
+
+.fps-tab-content {
+    display: none;
+    margin-top: 20px;
+}
+
+.fps-tab-content.active {
+    display: block;
+}
+
+/* Account Status */
+.fps-account-connected,
+.fps-account-disconnected {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.fps-connection-status {
+    margin-bottom: 15px;
+}
+
+.fps-account-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Pages List */
+.fps-pages-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.fps-page-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    transition: all 0.2s ease;
+}
+
+.fps-page-item:hover {
+    border-color: #0073aa;
+    background: #f8f9ff;
+}
+
+.fps-page-item label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.fps-page-item input[type="checkbox"] {
+    margin: 0;
+    width: auto;
+}
+
+.fps-page-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.fps-page-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.fps-page-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.fps-page-meta {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    gap: 10px;
+}
+
+.fps-page-category,
+.fps-page-fans {
+    background: #f0f0f1;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* System Info */
+.fps-system-info {
+    margin-top: 20px;
+}
+
+.fps-system-info table {
+    margin: 0;
+}
+
+.fps-system-info td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.fps-system-info td:first-child {
+    width: 200px;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .fps-dashboard-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .fps-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Post Thumbnails */
+.fps-post-thumbnail {
+    margin: 0;
+    width: auto;
+    height: auto;
+    max-width: 40px;
+    max-height: 40px;
+    vertical-align: middle;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.fps-post-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.fps-post-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.fps-content-preview {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+
+.fps-post-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #0073aa;
+    margin-bottom: 4px;
+}
+
+.fps-post-link a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.fps-post-link a:hover {
+    text-decoration: underline;
+}
+
+.fps-post-meta {
+    display: flex;
+    gap: 8px;
+    font-size: 11px;
+    color: #666;
+}
+
+.fps-has-media {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: #f0f0f1;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+/* Multi Schedule Styles */
+.fps-multi-schedule {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.fps-upload-section {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.fps-upload-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.fps-file-list {
+    margin-top: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fafafa;
+}
+
+.fps-file-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.fps-file-item:last-child {
+    border-bottom: none;
+}
+
+.fps-file-item.paired {
+    background: #e7f3ff;
+    border-left: 3px solid #0073aa;
+}
+
+.fps-file-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f1;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.fps-file-name {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.fps-file-status {
+    font-size: 11px;
+    color: #666;
+}
+
+.fps-pairing-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.fps-pairing-method {
+    margin-bottom: 15px;
+}
+
+.fps-pairing-method label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.fps-preview-section {
+    margin-top: 20px;
+}
+
+.fps-post-preview-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.fps-preview-header {
+    background: #f0f0f1;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.fps-preview-content {
+    padding: 15px;
+}
+
+.fps-preview-image {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.fps-preview-text {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+}
+
+.fps-schedule-calendar {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.fps-time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.fps-time-slot {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.fps-time-slot.available {
+    background: #e7f3ff;
+    border-color: #0073aa;
+    color: #0073aa;
+}
+
+.fps-time-slot.occupied {
+    background: #fef7f7;
+    border-color: #d63638;
+    color: #d63638;
+    cursor: not-allowed;
+}
+
+.fps-time-slot.selected {
+    background: #00a32a;
+    border-color: #00a32a;
+    color: white;
+}
+
+.fps-time-management {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.fps-add-time {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.fps-add-time input[type="time"] {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.fps-saved-times {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.fps-saved-time {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.fps-remove-time {
+    background: none;
+    border: none;
+    color: #d63638;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+}
+
+.fps-remove-time:hover {
+    color: #a00;
+}
+
+.fps-multi-actions {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fps-multi-actions .button-group {
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .fps-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .fps-quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .fps-pages-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .fps-account-actions {
+        flex-direction: column;
+    }
+    
+    .fps-account-actions .button {
+        text-align: center;
+    }
+    
+    .fps-multi-schedule {
+        grid-template-columns: 1fr;
+    }
+    
+    .fps-time-slots {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .fps-multi-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .fps-multi-actions .button-group {
+        justify-content: center;
+    }
+}
+
+/* Tailwind-inspired utility classes */
+.fps-btn {
+    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200;
+}
+
+.fps-btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+}
+
+.fps-btn-secondary {
+    @apply bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500;
+}
+
+.fps-btn-success {
+    @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+}
+
+.fps-btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+}
+
+.fps-btn-warning {
+    @apply bg-yellow-600 text-white hover:bg-yellow-700 focus:ring-yellow-500;
+}
+
+.fps-input {
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500;
+}
+
+.fps-textarea {
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 resize-vertical;
+}
+
+.fps-select {
+    @apply block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500;
+}
+
+.fps-card {
+    @apply bg-white overflow-hidden shadow rounded-lg border border-gray-200;
+}
+
+.fps-card-header {
+    @apply px-4 py-5 sm:px-6 border-b border-gray-200;
+}
+
+.fps-card-body {
+    @apply px-4 py-5 sm:p-6;
+}
+
+.fps-card-footer {
+    @apply px-4 py-4 sm:px-6 border-t border-gray-200;
+}
+
+/* Enhanced dropzone styles */
+.fps-dropzone-enhanced {
+    @apply border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors duration-200 cursor-pointer;
+}
+
+.fps-dropzone-enhanced.dragover {
+    @apply border-blue-400 bg-blue-50;
+}
+
+.fps-dropzone-enhanced .fps-dropzone-icon {
+    @apply w-12 h-12 text-gray-400 mx-auto mb-4;
+}
+
+.fps-dropzone-enhanced:hover .fps-dropzone-icon {
+    @apply text-blue-500;
+}
+
+/* File preview enhancements */
+.fps-file-preview-enhanced {
+    @apply flex items-center space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow duration-200;
+}
+
+.fps-file-preview-enhanced.uploading {
+    @apply opacity-70 pointer-events-none;
+}
+
+.fps-file-preview-enhanced.error {
+    @apply border-red-300 bg-red-50;
+}
+
+.fps-file-preview-enhanced.success {
+    @apply border-green-300 bg-green-50;
+}
+
+/* Calendar styles */
+.fps-calendar-day {
+    @apply min-h-[100px] p-2 border border-gray-100 rounded-lg cursor-pointer transition-colors duration-200;
+}
+
+.fps-calendar-day:hover {
+    @apply bg-gray-50;
+}
+
+.fps-calendar-day.today {
+    @apply bg-blue-50 border-blue-200;
+}
+
+.fps-calendar-day.past {
+    @apply bg-gray-50 text-gray-400 cursor-not-allowed;
+}
+
+.fps-calendar-day.has-events {
+    @apply border-blue-300;
+}
+
+/* Time slot styles */
+.fps-time-slot-enhanced {
+    @apply px-3 py-2 text-sm border border-gray-300 rounded-lg text-center cursor-pointer transition-all duration-200;
+}
+
+.fps-time-slot-enhanced.available {
+    @apply hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700;
+}
+
+.fps-time-slot-enhanced.occupied {
+    @apply bg-red-50 border-red-300 text-red-700 cursor-not-allowed;
+}
+
+.fps-time-slot-enhanced.selected {
+    @apply bg-blue-600 border-blue-600 text-white;
+}
+
+/* Modal enhancements */
+.fps-modal-enhanced {
+    @apply fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4;
+}
+
+.fps-modal-content-enhanced {
+    @apply bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto;
+}
+
+.fps-modal-header-enhanced {
+    @apply flex items-center justify-between p-6 border-b border-gray-200;
+}
+
+.fps-modal-body-enhanced {
+    @apply p-6;
+}
+
+.fps-modal-footer-enhanced {
+    @apply flex items-center justify-end space-x-3 p-6 border-t border-gray-200;
+}
+
+/* Loading states */
+.fps-loading {
+    @apply inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-current;
+}
+
+.fps-loading-lg {
+    @apply inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-current;
+}
+
+/* Status badges */
+.fps-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.fps-badge-success {
+    @apply bg-green-100 text-green-800;
+}
+
+.fps-badge-error {
+    @apply bg-red-100 text-red-800;
+}
+
+.fps-badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.fps-badge-info {
+    @apply bg-blue-100 text-blue-800;
+}
+
+.fps-badge-gray {
+    @apply bg-gray-100 text-gray-800;
+}
+
+/* Notification styles */
+.fps-notification {
+    @apply max-w-sm w-full shadow-lg rounded-lg pointer-events-auto;
+}
+
+/* Responsive grid utilities */
+.fps-grid {
+    @apply grid gap-6;
+}
+
+.fps-grid-cols-1 {
+    @apply grid-cols-1;
+}
+
+.fps-grid-cols-2 {
+    @apply grid-cols-1 md:grid-cols-2;
+}
+
+.fps-grid-cols-3 {
+    @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+}
+
+/* Edit Modal Styles */
+.fps-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fps-modal-content {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.fps-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.fps-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.fps-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fps-modal-close:hover {
+    color: #000;
+}
+
+.fps-modal-body {
+    padding: 20px;
+}
+
+.fps-modal-body .fps-form-group {
+    margin-bottom: 15px;
+}
+
+.fps-modal-body label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.fps-modal-body input,
+.fps-modal-body textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.fps-modal-body textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.fps-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: #f8f9fa;
+}
+
+@media (max-width: 480px) {
+    .fps-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .fps-quick-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .fps-stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .fps-recent-post {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

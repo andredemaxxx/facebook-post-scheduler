@@ -1,0 +1,233 @@
+# Copyright (C) 2024 Facebook Post Scheduler
+# This file is distributed under the same license as the Facebook Post Scheduler package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Facebook Post Scheduler 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/facebook-post-scheduler\n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: facebook-post-scheduler.php:50
+msgid "Facebook Post Scheduler requires PHP %s or higher. You are running PHP %s."
+msgstr ""
+
+#: facebook-post-scheduler.php:62
+msgid "Facebook Post Scheduler requires WordPress %s or higher. You are running WordPress %s."
+msgstr ""
+
+#: facebook-post-scheduler.php:78
+msgid "Facebook Post Scheduler requires the PHP %s extension to be installed."
+msgstr ""
+
+#: facebook-post-scheduler.php:142
+msgid "Facebook Post Scheduler could not be activated due to system requirements."
+msgstr ""
+
+#: facebook-post-scheduler.php:190
+msgid "Every Hour"
+msgstr ""
+
+#: facebook-post-scheduler.php:195
+msgid "Daily"
+msgstr ""
+
+#: facebook-post-scheduler.php:200
+msgid "Weekly"
+msgstr ""
+
+#: includes/class-fps-admin.php:65
+msgid "Facebook Scheduler"
+msgstr ""
+
+#: includes/class-fps-admin.php:72
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-fps-admin.php:81
+msgid "Schedule Post"
+msgstr ""
+
+#: includes/class-fps-admin.php:90
+msgid "Scheduled Posts"
+msgstr ""
+
+#: includes/class-fps-admin.php:99
+msgid "Analytics"
+msgstr ""
+
+#: includes/class-fps-admin.php:108
+msgid "Settings"
+msgstr ""
+
+#: includes/class-fps-admin.php:118
+msgid "Logs"
+msgstr ""
+
+#: templates/admin/dashboard.php:20
+msgid "Facebook Post Scheduler Dashboard"
+msgstr ""
+
+#: templates/admin/dashboard.php:30
+msgid "Scheduled Posts"
+msgstr ""
+
+#: templates/admin/dashboard.php:40
+msgid "Published Posts"
+msgstr ""
+
+#: templates/admin/dashboard.php:50
+msgid "Failed Posts"
+msgstr ""
+
+#: templates/admin/dashboard.php:60
+msgid "Today"
+msgstr ""
+
+#: templates/admin/dashboard.php:70
+msgid "Quick Actions"
+msgstr ""
+
+#: templates/admin/dashboard.php:76
+msgid "Schedule New Post"
+msgstr ""
+
+#: templates/admin/dashboard.php:81
+msgid "View Scheduled Posts"
+msgstr ""
+
+#: templates/admin/dashboard.php:86
+msgid "View Analytics"
+msgstr ""
+
+#: templates/admin/dashboard.php:91
+msgid "Settings"
+msgstr ""
+
+#: templates/admin/schedule-post.php:15
+msgid "Schedule New Post"
+msgstr ""
+
+#: templates/admin/schedule-post.php:25
+msgid "No Facebook pages found. Please"
+msgstr ""
+
+#: templates/admin/schedule-post.php:26
+msgid "connect your Facebook account"
+msgstr ""
+
+#: templates/admin/schedule-post.php:27
+msgid "first."
+msgstr ""
+
+#: templates/admin/schedule-post.php:40
+msgid "Post Content"
+msgstr ""
+
+#: templates/admin/schedule-post.php:45
+msgid "Facebook Page"
+msgstr ""
+
+#: templates/admin/schedule-post.php:47
+msgid "Select a page..."
+msgstr ""
+
+#: templates/admin/schedule-post.php:58
+msgid "Message"
+msgstr ""
+
+#: templates/admin/schedule-post.php:59
+msgid "What do you want to share?"
+msgstr ""
+
+#: templates/admin/schedule-post.php:65
+msgid "characters"
+msgstr ""
+
+#: templates/admin/schedule-post.php:70
+msgid "Link (Optional)"
+msgstr ""
+
+#: templates/admin/schedule-post.php:72
+msgid "Add a link to share with your post"
+msgstr ""
+
+#: templates/admin/schedule-post.php:77
+msgid "Media (Optional)"
+msgstr ""
+
+#: templates/admin/schedule-post.php:82
+msgid "Image"
+msgstr ""
+
+#: templates/admin/schedule-post.php:87
+msgid "Video"
+msgstr ""
+
+#: templates/admin/schedule-post.php:95
+msgid "Click to upload an image or drag and drop"
+msgstr ""
+
+#: templates/admin/schedule-post.php:96
+msgid "Supported formats: JPG, PNG, GIF (max 10MB)"
+msgstr ""
+
+#: templates/admin/schedule-post.php:109
+msgid "Click to upload a video or drag and drop"
+msgstr ""
+
+#: templates/admin/schedule-post.php:110
+msgid "Supported formats: MP4, MOV, AVI (max 100MB)"
+msgstr ""
+
+#: templates/admin/schedule-post.php:127
+msgid "Scheduling"
+msgstr ""
+
+#: templates/admin/schedule-post.php:132
+msgid "Date"
+msgstr ""
+
+#: templates/admin/schedule-post.php:137
+msgid "Time"
+msgstr ""
+
+#: templates/admin/schedule-post.php:144
+msgid "Timezone: %s"
+msgstr ""
+
+#: templates/admin/schedule-post.php:152
+msgid "Preview"
+msgstr ""
+
+#: templates/admin/schedule-post.php:157
+msgid "Preview will appear here as you type"
+msgstr ""
+
+#: templates/admin/schedule-post.php:162
+msgid "Refresh Preview"
+msgstr ""
+
+#: templates/admin/schedule-post.php:170
+msgid "Actions"
+msgstr ""
+
+#: templates/admin/schedule-post.php:175
+msgid "Schedule Post"
+msgstr ""
+
+#: templates/admin/schedule-post.php:180
+msgid "Save as Draft"
+msgstr ""
+
+#: templates/admin/schedule-post.php:186
+msgid "Your post will be automatically published to Facebook at the scheduled time."
+msgstr ""
+
+#: templates/admin/schedule-post.php:199
+msgid "Scheduling your post..."
+msgstr ""
