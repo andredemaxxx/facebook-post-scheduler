@@ -17,6 +17,7 @@
     window.FPSAdmin = {
         initialized: false,
         mediaFrames: {}, // Store media frames to prevent recreation
+        currentMediaType: 'carousel', // Track current media type
         
         init: function() {
             if (this.initialized) {
@@ -28,6 +29,7 @@
             this.bindEvents();
             this.initDatePicker();
             this.initMediaUploader();
+            this.initMediaTabs();
             this.initialized = true;
         },
 
@@ -71,6 +73,7 @@
             
             // Remove media
             $(document).on('click.fps-admin', '.fps-remove-media', this.handleRemoveMedia.bind(this));
+            $(document).on('click.fps-admin', '.fps-remove-image', this.handleRemoveCarouselImage.bind(this));
             
             // Settings tabs - FIXED
             $(document).on('click.fps-admin', '.nav-tab', this.handleSettingsTab.bind(this));
@@ -78,6 +81,12 @@
             console.log('[FPS] Admin: Event handlers bound');
         },
 
+        initMediaTabs: function() {
+            // Set initial tab state
+            this.currentMediaType = 'carousel';
+            $('.fps-tab-button[data-tab="carousel"]').addClass('active');
+            $('#fps-tab-carousel').addClass('active');
+        },
         initDatePicker: function() {
             // Remove existing datepicker to prevent conflicts
             if ($('#fps-scheduled-date').hasClass('hasDatepicker')) {
@@ -237,6 +246,7 @@
             $('#fps-image-ids').val(JSON.stringify(imageIds));
             
             $('.fps-images-section').show();
+            $('.fps-upload-placeholder').hide();
             this.handleRefreshPreview();
         },
 
@@ -262,6 +272,22 @@
             this.handleRefreshPreview();
         },
 
+        handleRemoveCarouselImage: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var attachmentId = $(this).data('attachment-id');
+            console.log('[FPS] Admin: Remove carousel image', attachmentId);
+            
+            // Remove from DOM
+            $(this).closest('.fps-image-item').remove();
+            
+            // Update image IDs
+            this.updateCarouselIds();
+            
+            // Refresh preview
+            this.handleRefreshPreview();
+        },
         handleSchedulePost: function(e) {
             e.preventDefault();
             
@@ -361,8 +387,12 @@
             $('.fps-page-name').text(page.name);
             
             if (page.picture && page.picture.data && page.picture.data.url) {
-                $('.fps-page-avatar img').attr('src', page.picture.data.url);
-                $('.fps-page-avatar').show();
+                $('.fps-post-avatar img').attr('src', page.picture.data.url);
+                $('.fps-post-avatar .fps-avatar-placeholder').hide();
+                $('.fps-post-avatar img').show();
+            } else {
+                $('.fps-post-avatar img').hide();
+                $('.fps-post-avatar .fps-avatar-placeholder').show();
             }
         },
 
@@ -418,7 +448,7 @@
         },
 
         getEmptyPreview: function() {
-            return '<div class="fps-preview-placeholder"><span class="dashicons dashicons-facebook"></span><p>Preview will appear here as you type</p></div>';
+            return '<div class="fps-preview-placeholder text-center py-8 text-gray-500"><span class="dashicons dashicons-facebook text-4xl text-blue-500 mb-4"></span><p>Preview will appear here as you type</p></div>';
         },
 
         updateCharacterCount: function() {
@@ -439,16 +469,73 @@
             var tab = $(this).data('tab');
             console.log('[FPS] Admin: Media tab changed to', tab);
             
+            // Update current media type
+            this.currentMediaType = tab;
+            
             $('.fps-tab-button').removeClass('active');
             $(this).addClass('active');
             
             $('.fps-tab-content').removeClass('active');
             $('#fps-tab-' + tab).addClass('active');
             
+            // Update upload instructions based on tab
+            this.updateUploadInstructions(tab);
+            
             // Clear previous selections when switching tabs
             this.clearMediaSelections();
+            
+            // Show upload placeholder for new tab
+            $('.fps-upload-placeholder').show();
+            
+            // Bind click handler to upload area
+            this.bindUploadAreaClick(tab);
         },
 
+        updateUploadInstructions: function(tab) {
+            var instructions = {
+                'carousel': {
+                    text: 'Click to upload multiple images for carousel post',
+                    description: 'Supported formats: JPG, PNG, GIF (max 10 images, 10MB each)'
+                },
+                'image': {
+                    text: 'Click to upload a single image',
+                    description: 'Supported formats: JPG, PNG, GIF (max 10MB)'
+                },
+                'video': {
+                    text: 'Click to upload a video',
+                    description: 'Supported formats: MP4, MOV, AVI (max 100MB)'
+                }
+            };
+            
+            if (instructions[tab]) {
+                $('#fps-upload-instruction').text(instructions[tab].text);
+                $('#fps-upload-description').text(instructions[tab].description);
+            }
+        },
+        
+        bindUploadAreaClick: function(tab) {
+            var self = this;
+            
+            // Remove existing click handler
+            $('.fps-upload-placeholder').off('click.fps-upload');
+            
+            // Bind new click handler based on tab
+            $('.fps-upload-placeholder').on('click.fps-upload', function(e) {
+                e.preventDefault();
+                
+                switch(tab) {
+                    case 'carousel':
+                        $('#fps-images-upload').trigger('click');
+                        break;
+                    case 'image':
+                        $('#fps-image-upload').trigger('click');
+                        break;
+                    case 'video':
+                        $('#fps-video-upload').trigger('click');
+                        break;
+                }
+            });
+        },
         clearMediaSelections: function() {
             // Clear all media selections
             $('#fps-image-ids').val('');
@@ -457,7 +544,6 @@
             
             // Hide previews
             $('.fps-image-preview, .fps-video-preview, .fps-images-section').hide();
-            $('.fps-upload-placeholder').show();
             
             // Clear containers
             $('#fps-images-container').empty();
@@ -498,7 +584,10 @@
             
             if (imageIds.length === 0) {
                 $('.fps-images-section').hide();
+                $('.fps-upload-placeholder').show();
             }
+            
+            console.log('[FPS] Admin: Updated carousel IDs', imageIds);
         },
 
         handleSettingsTab: function(e) {

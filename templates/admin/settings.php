@@ -109,8 +109,9 @@ if (!defined('ABSPATH')) {
                             <p><?php _e('Connect your Facebook account to start scheduling posts.', 'facebook-post-scheduler'); ?></p>
                             
                             <?php
+                            $facebook_api = new FPS_Facebook_API(new FPS_Token_Manager());
                             $redirect_uri = admin_url('admin.php?page=fps-settings');
-                            $login_url = $this->facebook_api->get_login_url($redirect_uri);
+                            $login_url = $facebook_api->get_login_url($redirect_uri);
                             ?>
                             
                             <?php if ($login_url): ?>
@@ -318,6 +319,15 @@ if (!defined('ABSPATH')) {
                                             <?php else: ?>
                                             <span class="fps-status-ok"><?php _e('Enabled', 'facebook-post-scheduler'); ?></span>
                                             <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong><?php _e('Plugin Timezone', 'facebook-post-scheduler'); ?></strong></td>
+                                        <td>
+                                            <?php 
+                                            $timezone_info = FPS_Timezone_Manager::get_timezone_info();
+                                            echo esc_html($timezone_info['display_name'] . ' - ' . $timezone_info['current_time']);
+                                            ?>
                                         </td>
                                     </tr>
                                 </tbody>

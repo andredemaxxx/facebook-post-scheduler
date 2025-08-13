@@ -231,6 +231,7 @@ class FPS_Admin {
                 'selectDateTime' => __('Please select a date and time', 'facebook-post-scheduler'),
                 'pastDateTime' => __('Scheduled time must be in the future', 'facebook-post-scheduler'),
                 'uploadFiles' => __('Upload Files', 'facebook-post-scheduler'),
+                'selectFiles' => __('Select Files', 'facebook-post-scheduler'),
                 'processFiles' => __('Processing files...', 'facebook-post-scheduler'),
                 'filesProcessed' => __('Files processed successfully', 'facebook-post-scheduler'),
                 'noFilesSelected' => __('No files selected', 'facebook-post-scheduler'),

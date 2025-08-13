@@ -52,11 +52,11 @@ class FPS_Multi_Ajax {
         $pairs = $_POST['pairs'];
         $selected_date = sanitize_text_field($_POST['selected_date']);
         $time_slots = $_POST['time_slots'];
-        $share_to_story = isset($_POST['share_to_story']) ? (bool) $_POST['share_to_story'] : false;
+        $share_to_story_settings = isset($_POST['share_to_story_settings']) ? $_POST['share_to_story_settings'] : array();
         
         FPS_Logger::info("Multi AJAX: Scheduling " . count($pairs) . " posts for {$selected_date}");
         
-        $result = $this->multi_admin->handle_multi_scheduling($page_id, $pairs, $selected_date, $time_slots, $share_to_story);
+        $result = $this->multi_admin->handle_multi_scheduling($page_id, $pairs, $selected_date, $time_slots, $share_to_story_settings);
         
         if ($result['success']) {
             wp_send_json_success($result);

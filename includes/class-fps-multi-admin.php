@@ -72,6 +72,7 @@ class FPS_Multi_Admin {
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('fps_multi_nonce'),
             'currentPage' => $hook,
+            'calendarUrl' => admin_url('admin.php?page=fps-calendar-post'),
             'strings' => array(
                 'selectPage' => __('Please select a Facebook page', 'facebook-post-scheduler'),
                 'noFilesSelected' => __('No files selected', 'facebook-post-scheduler'),
@@ -131,11 +132,11 @@ class FPS_Multi_Admin {
      * @param array $pairs Paired posts
      * @param string $selected_date Selected date
      * @param array $time_slots Time slots
-     * @param bool $share_to_story Share to story option
+     * @param array $share_to_story_settings Share to story settings per post
      * @return array Results
      */
-    public function handle_multi_scheduling($page_id, $pairs, $selected_date, $time_slots, $share_to_story = false) {
-        return $this->multi_scheduler->schedule_multiple_posts($page_id, $pairs, $selected_date, $time_slots, $share_to_story);
+    public function handle_multi_scheduling($page_id, $pairs, $selected_date, $time_slots, $share_to_story_settings = array()) {
+        return $this->multi_scheduler->schedule_multiple_posts($page_id, $pairs, $selected_date, $time_slots, $share_to_story_settings);
     }
     
     /**

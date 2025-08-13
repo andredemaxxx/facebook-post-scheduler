@@ -370,10 +370,10 @@
                 var self = this;
                 
                 this.uploadedImages.forEach(function(image, index) {
-                    var $inputGroup = $('<div class="fps-manual-input-group space-y-2 p-4 bg-gray-50 rounded-lg">');
+                    var $inputGroup = $('<div class="fps-manual-input-group space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200">');
                     
                     $inputGroup.html(`
-                        <div class="flex items-center space-x-3">
+                        <div class="flex items-start space-x-4">
                             <img src="${image.url}" class="w-12 h-12 object-cover rounded">
                             <div class="flex-1">
                                 <label class="block text-sm font-medium text-gray-700">Text for ${image.name}</label>
@@ -381,6 +381,12 @@
                                           data-index="${index}" 
                                           rows="3" 
                                           placeholder="Enter text for this image...">${self.manualTexts[index] || ''}</textarea>
+                                <div class="mt-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" class="fps-group-checkbox text-blue-600 focus:ring-blue-500 rounded" data-index="${index}">
+                                        <span class="text-xs text-gray-600">Group with next image (carousel)</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     `);
@@ -414,6 +420,22 @@
             if (this.uploadedImages.length === 0) {
                 this.showNotice(fpsMulti.strings.noFilesSelected, 'error');
                 return;
+            }
+            
+            // For manual mode, validate that we have text for images
+            if (uploadMode === 'manual') {
+                var hasText = false;
+                for (var i = 0; i < this.uploadedImages.length; i++) {
+                    if (this.manualTexts[i] && this.manualTexts[i].trim()) {
+                        hasText = true;
+                        break;
+                    }
+                }
+                
+                if (!hasText) {
+                    this.showNotice('Please enter text for at least one image', 'error');
+                    return;
+                }
             }
             
             this.showLoading(fpsMulti.strings.processFiles);
@@ -502,7 +524,65 @@
         pairWithManualText: function() {
             var self = this;
             
+            // Get carousel groupings from checkboxes
+            var carouselGroups = [];
+            var currentGroup = [];
+            
+            $('.fps-group-checkbox').each(function(index) {
+                if ($(this).is(':checked')) {
+                    currentGroup.push(index);
+                    
+                    // Check if this is the last checkbox or next one is not checked
+                    var $nextCheckbox = $('.fps-group-checkbox').eq(index + 1);
+                    if (!$nextCheckbox.length || !$nextCheckbox.is(':checked')) {
+                        if (currentGroup.length > 1) {
+                            carouselGroups.push([...currentGroup]);
+                        }
+                        currentGroup = [];
+                    }
+                } else {
+                    if (currentGroup.length > 1) {
+                        carouselGroups.push([...currentGroup]);
+                    }
+                    currentGroup = [];
+                }
+            });
+            
+            // Process images with grouping
+            var processedIndexes = [];
+            
+            // First, process carousel groups
+            carouselGroups.forEach(function(group) {
+                var groupImages = [];
+                var groupText = '';
+                
+                group.forEach(function(index) {
+                    if (self.uploadedImages[index]) {
+                        groupImages.push(self.uploadedImages[index]);
+                        if (!groupText && self.manualTexts[index]) {
+                            groupText = self.manualTexts[index];
+                        }
+                        processedIndexes.push(index);
+                    }
+                });
+                
+                if (groupImages.length > 0 && groupText.trim()) {
+                    self.pairedPosts.push({
+                        type: 'carousel',
+                        images: groupImages,
+                        text: null,
+                        content: groupText,
+                        pairMethod: 'manual'
+                    });
+                }
+            });
+            
+            // Then process individual images
             this.uploadedImages.forEach(function(image, index) {
+                if (processedIndexes.includes(index)) {
+                    return; // Skip already processed images
+                }
+                
                 var manualText = self.manualTexts[index] || '';
                 
                 if (manualText.trim()) {
@@ -530,7 +610,7 @@
             var self = this;
             
             this.pairedPosts.forEach(function(pair, index) {
-                var $preview = $('<div class="fps-post-preview-item bg-white border border-gray-200 rounded-lg p-4 space-y-3">');
+                var $preview = $('<div class="fps-post-preview-item bg-white border border-gray-200 rounded-lg p-4 space-y-3 relative">');
                 
                 var imagesHtml = '';
                 if (pair.type === 'carousel') {
@@ -552,6 +632,12 @@
                             <p class="text-sm text-gray-600 mt-1">${pair.content.substring(0, 100)}${pair.content.length > 100 ? '...' : ''}</p>
                             <div class="text-xs text-gray-500 mt-2">
                                 Method: ${pair.pairMethod}${pair.numericPart ? ' (Group: ' + pair.numericPart + ')' : ''}
+                            </div>
+                            <div class="mt-3">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" class="fps-share-story-checkbox text-blue-600 focus:ring-blue-500 rounded" data-index="${index}">
+                                    <span class="text-xs text-gray-700">Share to Story automatically</span>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -578,6 +664,8 @@
                 date = $('#fps-schedule-date').val() || new Date().toISOString().split('T')[0];
             }
             
+            console.log('[FPS] Multi: Loading available time slots for', date);
+            
             $.ajax({
                 url: fpsMulti.ajaxUrl,
                 type: 'POST',
@@ -588,11 +676,15 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        self.displayTimeSlots(response.data.available_slots, date);
+                        self.displayTimeSlots(response.data.available_slots || [], date);
+                    } else {
+                        console.error('[FPS] Multi: Failed to load time slots', response.data.message);
+                        self.displayTimeSlots([], date);
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('[FPS] Multi: Load time slots error', error);
+                    self.displayTimeSlots([], date);
                 }
             });
         },
@@ -602,16 +694,18 @@
             $container.empty();
             
             if (availableSlots.length === 0) {
-                $container.html('<div class="col-span-full text-center py-8 text-gray-500"><p>No available time slots for this date</p><p class="text-sm">Create recurring times in Calendar Post first</p></div>');
+                $container.html('<div class="col-span-full text-center py-8 text-gray-500"><p class="mb-2">No available time slots for this date</p><p class="text-sm"><a href="' + fpsMulti.calendarUrl + '" class="text-blue-600 hover:underline">Create recurring times in Calendar Post first</a></p></div>');
                 return;
             }
             
             var self = this;
             
             availableSlots.forEach(function(slot) {
-                var $slot = $('<div class="fps-time-slot available px-3 py-2 text-sm border border-gray-300 rounded-lg text-center cursor-pointer hover:bg-blue-50 hover:border-blue-300" data-time="' + slot + '">' + slot + '</div>');
+                var $slot = $('<div class="fps-time-slot available px-3 py-2 text-sm border border-gray-300 rounded-lg text-center cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-colors duration-200" data-time="' + slot + '">' + slot + '</div>');
                 $container.append($slot);
             });
+            
+            console.log('[FPS] Multi: Displayed', availableSlots.length, 'time slots');
         },
 
         handleTimeSlotClick: function(e) {
@@ -660,7 +754,12 @@
             
             var pageId = $('#fps-multi-page-id').val();
             var selectedDate = $('#fps-schedule-date').val();
-            var shareToStory = $('#fps-share-to-story').is(':checked');
+            
+            // Collect share to story settings per post
+            var shareToStorySettings = [];
+            $('.fps-share-story-checkbox').each(function(index) {
+                shareToStorySettings[index] = $(this).is(':checked');
+            });
             
             if (!pageId) {
                 this.showNotice(fpsMulti.strings.selectPage, 'error');
@@ -690,7 +789,7 @@
                     pairs: this.pairedPosts,
                     selected_date: selectedDate,
                     time_slots: this.selectedTimeSlots,
-                    share_to_story: shareToStory,
+                    share_to_story_settings: shareToStorySettings,
                     nonce: fpsMulti.nonce
                 },
                 success: function(response) {

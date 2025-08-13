@@ -200,6 +200,28 @@ class FPS_Scheduler {
      * @return array|false Facebook response or false
      */
     private function schedule_with_facebook($post_id, $post_data, $scheduled_timestamp) {
+        // Log timezone conversion for debugging
+        $timezone = new DateTimeZone('America/Sao_Paulo');
+        $local_datetime = new DateTime($post_data['scheduled_time'], $timezone);
+        $utc_datetime = clone $local_datetime;
+        $utc_datetime->setTimezone(new DateTimeZone('UTC'));
+        
+        FPS_Logger::info("[FPS] Timezone conversion for post {$post_id}: Local ({$local_datetime->format('Y-m-d H:i:s T')}) -> UTC ({$utc_datetime->format('Y-m-d H:i:s T')}) -> Timestamp ({$scheduled_timestamp})");
+        
+        // Validate timestamp is at least 10 minutes in future
+        $now_utc = new DateTime('now', new DateTimeZone('UTC'));
+        $min_future_utc = clone $now_utc;
+        $min_future_utc->modify('+10 minutes');
+        
+        $seconds_diff = $scheduled_timestamp - $min_future_utc->getTimestamp();
+        
+        if ($seconds_diff < 0) {
+            FPS_Logger::error("[FPS] Facebook scheduling validation failed for post {$post_id}. Timestamp {$scheduled_timestamp} is {$seconds_diff} seconds before minimum required time {$min_future_utc->getTimestamp()}");
+            return false;
+        }
+        
+        FPS_Logger::info("[FPS] Facebook scheduling validation passed for post {$post_id}. Timestamp is {$seconds_diff} seconds in the future");
+        
         $facebook_post_data = array(
             'message' => $post_data['message'],
             'scheduled_publish_time' => $scheduled_timestamp
@@ -222,12 +244,16 @@ class FPS_Scheduler {
             $facebook_post_data['video_path'] = $post_data['video_path'];
         }
         
+        // Log the payload being sent to Facebook
+        FPS_Logger::debug("[FPS] Facebook API payload for post {$post_id}: " . wp_json_encode($facebook_post_data));
+        
         $result = $this->facebook_api->create_post($post_data['page_id'], $facebook_post_data);
         
         if ($result) {
             FPS_Logger::log("Post {$post_id} scheduled with Facebook, FB ID: {$result['id']}", 'info');
         } else {
-            FPS_Logger::log("Failed to schedule post {$post_id} with Facebook", 'error');
+            FPS_Logger::error("[FPS] Facebook API returned false for post {$post_id}. Check previous error logs for details.");
+        } else {
         }
         
         return $result;

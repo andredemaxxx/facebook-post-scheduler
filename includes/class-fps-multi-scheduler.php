@@ -353,10 +353,10 @@ class FPS_Multi_Scheduler {
      * @param array $pairs Paired posts
      * @param string $selected_date Selected date
      * @param array $time_slots Available time slots
-     * @param bool $share_to_story Share to story option
+     * @param array $share_to_story_settings Share to story settings per post
      * @return array Results
      */
-    public function schedule_multiple_posts($page_id, $pairs, $selected_date, $time_slots, $share_to_story = false) {
+    public function schedule_multiple_posts($page_id, $pairs, $selected_date, $time_slots, $share_to_story_settings = array()) {
         if (empty($pairs) || empty($time_slots)) {
             return array(
                 'success' => false,
@@ -407,6 +407,7 @@ class FPS_Multi_Scheduler {
             }
             
             $scheduled_time = $selected_date . ' ' . $time_slots[$index];
+            $share_to_story = isset($share_to_story_settings[$index]) ? (bool) $share_to_story_settings[$index] : false;
             
             // Validate scheduled time is in future (except for today)
             $scheduled_datetime = new DateTime($scheduled_time, $timezone);

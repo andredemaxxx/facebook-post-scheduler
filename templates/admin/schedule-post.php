@@ -83,18 +83,27 @@ if (!defined('ABSPATH')) {
                                 </button>
                             </div>
                             
-                            <!-- Carousel Tab (Multiple Images) -->
-                            <div class="fps-tab-content active" id="fps-tab-carousel">
-                                <div class="fps-upload-area">
-                                    <button type="button" id="fps-images-upload" class="w-full h-full">
-                                        <div class="fps-upload-placeholder">
-                                            <span class="dashicons dashicons-images-alt2"></span>
-                                            <p><?php _e('Click to upload multiple images for carousel post', 'facebook-post-scheduler'); ?></p>
-                                            <p class="description"><?php _e('Supported formats: JPG, PNG, GIF (max 10 images, 10MB each)', 'facebook-post-scheduler'); ?></p>
-                                        </div>
-                                    </button>
+                            <!-- Universal Upload Area -->
+                            <div class="fps-upload-area mt-4">
+                                <!-- Upload placeholder (shown by default) -->
+                                <div class="fps-upload-placeholder text-center py-8 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-400 transition-colors cursor-pointer">
+                                    <span class="dashicons dashicons-cloud-upload text-4xl text-gray-400 mb-4"></span>
+                                    <p class="text-gray-600 mb-2" id="fps-upload-instruction">
+                                        <?php _e('Click to upload multiple images for carousel post', 'facebook-post-scheduler'); ?>
+                                    </p>
+                                    <p class="text-sm text-gray-500" id="fps-upload-description">
+                                        <?php _e('Supported formats: JPG, PNG, GIF (max 10 images, 10MB each)', 'facebook-post-scheduler'); ?>
+                                    </p>
                                 </div>
                                 
+                                <!-- Hidden upload buttons -->
+                                <button type="button" id="fps-images-upload" class="hidden"></button>
+                                <button type="button" id="fps-image-upload" class="hidden"></button>
+                                <button type="button" id="fps-video-upload" class="hidden"></button>
+                            </div>
+                            
+                            <!-- Carousel Tab (Multiple Images) -->
+                            <div class="fps-tab-content active" id="fps-tab-carousel">                                
                                 <div id="fps-images-container" class="fps-images-section mt-4 grid grid-cols-4 gap-4" style="display: none;">
                                     <!-- Multiple images will be displayed here -->
                                 </div>
@@ -104,21 +113,11 @@ if (!defined('ABSPATH')) {
                             
                             <!-- Single Image Tab -->
                             <div class="fps-tab-content" id="fps-tab-image">
-                                <div class="fps-upload-area">
-                                    <button type="button" id="fps-image-upload" class="w-full h-full">
-                                        <div class="fps-upload-placeholder">
-                                            <span class="dashicons dashicons-cloud-upload"></span>
-                                            <p><?php _e('Click to upload a single image', 'facebook-post-scheduler'); ?></p>
-                                            <p class="description"><?php _e('Supported formats: JPG, PNG, GIF (max 10MB)', 'facebook-post-scheduler'); ?></p>
-                                        </div>
+                                <div class="fps-image-preview mt-4 relative" style="display: none;">
+                                    <img id="fps-image-preview-img" src="" alt="" class="max-w-full h-auto rounded border border-gray-200">
+                                    <button type="button" class="fps-remove-media absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-600" data-type="image">
+                                        <span class="dashicons dashicons-no"></span>
                                     </button>
-                                    
-                                    <div class="fps-image-preview" style="display: none;">
-                                        <img id="fps-image-preview-img" src="" alt="" class="max-w-full h-auto rounded">
-                                        <button type="button" class="fps-remove-media absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-600" data-type="image">
-                                            <span class="dashicons dashicons-no"></span>
-                                        </button>
-                                    </div>
                                 </div>
                                 
                                 <input type="hidden" id="fps-image-id" name="image_id" value="">
@@ -126,21 +125,11 @@ if (!defined('ABSPATH')) {
                             
                             <!-- Video Tab -->
                             <div class="fps-tab-content" id="fps-tab-video">
-                                <div class="fps-upload-area">
-                                    <button type="button" id="fps-video-upload" class="w-full h-full">
-                                        <div class="fps-upload-placeholder">
-                                            <span class="dashicons dashicons-format-video"></span>
-                                            <p><?php _e('Click to upload a video', 'facebook-post-scheduler'); ?></p>
-                                            <p class="description"><?php _e('Supported formats: MP4, MOV, AVI (max 100MB)', 'facebook-post-scheduler'); ?></p>
-                                        </div>
+                                <div class="fps-video-preview mt-4 relative" style="display: none;">
+                                    <video id="fps-video-preview-video" controls class="max-w-full h-auto rounded border border-gray-200"></video>
+                                    <button type="button" class="fps-remove-media absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-600" data-type="video">
+                                        <span class="dashicons dashicons-no"></span>
                                     </button>
-                                    
-                                    <div class="fps-video-preview" style="display: none;">
-                                        <video id="fps-video-preview-video" controls class="max-w-full h-auto rounded"></video>
-                                        <button type="button" class="fps-remove-media absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-600" data-type="video">
-                                            <span class="dashicons dashicons-no"></span>
-                                        </button>
-                                    </div>
                                 </div>
                                 
                                 <input type="hidden" id="fps-video-id" name="video_id" value="">
@@ -149,10 +138,10 @@ if (!defined('ABSPATH')) {
                         
                         <!-- Share to Story Option -->
                         <div class="fps-form-group">
-                            <label class="flex items-center space-x-2">
+                            <div class="fps-share-to-story-wrapper">
                                 <input type="checkbox" id="fps-share-to-story" name="share_to_story" value="1" class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="text-sm font-medium text-gray-700"><?php _e('Share to Story automatically', 'facebook-post-scheduler'); ?></span>
-                            </label>
+                                <label for="fps-share-to-story" class="text-sm font-medium text-gray-700"><?php _e('Share to Story automatically', 'facebook-post-scheduler'); ?></label>
+                            </div>
                             <p class="description text-xs text-gray-500 mt-1"><?php _e('Automatically share this post to your Facebook page story', 'facebook-post-scheduler'); ?></p>
                         </div>
                     </div>
