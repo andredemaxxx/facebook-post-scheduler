@@ -41,13 +41,11 @@ class FPS_Scheduler {
             return false;
         }
         
-        // Validate scheduled time
-        // Use São Paulo timezone for validation
+        // Validate scheduled time using São Paulo timezone
         $timezone = new DateTimeZone('America/Sao_Paulo');
         $scheduled_datetime = new DateTime($post_data['scheduled_time'], $timezone);
         $now = new DateTime('now', $timezone);
         
-        $scheduled_time = strtotime($post_data['scheduled_time']);
         if ($scheduled_datetime <= $now) {
             FPS_Logger::log('Scheduled time must be in the future', 'error');
             return false;
@@ -165,25 +163,25 @@ class FPS_Scheduler {
                 // Fall back to WordPress cron
             } else {
                 $facebook_result = $this->schedule_with_facebook($post_id, $post_data, $facebook_timestamp);
-            }
-            
-            if ($facebook_result) {
-                // Update database with Facebook post ID
-                $wpdb->update(
-                    $table_name,
-                    array(
-                        'facebook_post_id' => $facebook_result['id'],
-                        'status' => 'scheduled_facebook'
-                    ),
-                    array('id' => $post_id),
-                    array('%s', '%s'),
-                    array('%d')
-                );
                 
-                // Clear WordPress cron since Facebook will handle it
-                wp_clear_scheduled_hook('fps_publish_scheduled_post', array($post_id));
-                
-                FPS_Logger::info("[FPS] Post {$post_id} scheduled with Facebook. UTC timestamp: {$facebook_timestamp}");
+                if ($facebook_result) {
+                    // Update database with Facebook post ID
+                    $wpdb->update(
+                        $table_name,
+                        array(
+                            'facebook_post_id' => $facebook_result['id'],
+                            'status' => 'scheduled_facebook'
+                        ),
+                        array('id' => $post_id),
+                        array('%s', '%s'),
+                        array('%d')
+                    );
+                    
+                    // Clear WordPress cron since Facebook will handle it
+                    wp_clear_scheduled_hook('fps_publish_scheduled_post', array($post_id));
+                    
+                    FPS_Logger::info("[FPS] Post {$post_id} scheduled with Facebook. UTC timestamp: {$facebook_timestamp}");
+                }
             }
         }
         
@@ -253,7 +251,6 @@ class FPS_Scheduler {
             FPS_Logger::log("Post {$post_id} scheduled with Facebook, FB ID: {$result['id']}", 'info');
         } else {
             FPS_Logger::error("[FPS] Facebook API returned false for post {$post_id}. Check previous error logs for details.");
-        } else {
         }
         
         return $result;
@@ -281,8 +278,7 @@ class FPS_Scheduler {
             return false;
         }
         
-        // Check if it's time to publish
-        // Use São Paulo timezone for comparison
+        // Check if it's time to publish using São Paulo timezone
         $timezone = new DateTimeZone('America/Sao_Paulo');
         $scheduled_datetime = new DateTime($post->scheduled_time, $timezone);
         $now = new DateTime('now', $timezone);
@@ -429,7 +425,7 @@ class FPS_Scheduler {
             $now = new DateTime('now', $timezone);
             
             if ($scheduled_datetime > $now) {
-                $update_data['scheduled_time'] = date('Y-m-d H:i:s', $scheduled_time);
+                $update_data['scheduled_time'] = $scheduled_datetime->format('Y-m-d H:i:s');
                 $update_formats[] = '%s';
                 
                 // Reschedule cron job
@@ -633,7 +629,6 @@ class FPS_Scheduler {
      * Get occupied time slots for a specific date
      * 
      * @param string $date Date in Y-m-d format (optional, defaults to today in São Paulo timezone)
-     * @param string $date Date in Y-m-d format (optional, defaults to today)
      * @return array Array of occupied time slots
      */
     public function get_occupied_time_slots($date = null) {
